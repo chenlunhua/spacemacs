@@ -10,12 +10,12 @@
 ;;; License: GPLv3
 (setq restclient-packages
       '(
-        (company-restclient :toggle (configuration-layer/package-usedp 'company))
+        (company-restclient :requires company)
         golden-ratio
         ob-http
         ob-restclient
         restclient
-        (restclient-helm :toggle (configuration-layer/package-usedp 'helm))
+        (restclient-helm :requires helm)
         ))
 
 (defun restclient/pre-init-golden-ratio ()
@@ -61,5 +61,6 @@
 
 (defun restclient/init-restclient-helm ()
   (use-package restclient-helm
+    :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'restclient-mode
             "ji" 'helm-restclient)))

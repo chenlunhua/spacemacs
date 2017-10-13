@@ -24,7 +24,8 @@
     ))
 
 (defun scala/post-init-eldoc ()
-  (add-hook 'scala-mode-hook #'spacemacs//java-setup-ensime-eldoc))
+  (when scala-enable-eldoc
+    (add-hook 'scala-mode-hook #'spacemacs//java-setup-ensime-eldoc)))
 
 (defun scala/pre-init-ensime ()
   (spacemacs|use-package-add-hook ensime
@@ -42,7 +43,7 @@
     (progn
       ;; Enable Expand Region integration from Ensime.  Ignore load errors to
       ;; handle older Ensime versions gracefully.
-      (when (configuration-layer/package-usedp 'expand-region)
+      (when (configuration-layer/package-used-p 'expand-region)
         (require 'ensime-expand-region nil 'noerror)))))
 
 (defun scala/post-init-flycheck ()
@@ -54,7 +55,7 @@
 
 (defun scala/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'scala-mode)
-  (add-hook 'scala-mode-hook #'spacemacs//java-setup-ensime-spell-checking))
+  (add-hook 'scala-mode-hook #'spacemacs//java-setup-ensime-flyspell))
 
 (defun scala/init-noflet ()
   (use-package noflet))
